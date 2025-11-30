@@ -13,7 +13,9 @@ const CollaboratorForm: React.FC = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    // Força Uppercase
+    setFormData({ ...formData, [name]: value.toUpperCase() });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +26,7 @@ const CollaboratorForm: React.FC = () => {
     } as Collaborator;
     
     addCollaborator(newCollab);
-    alert('Colaborador cadastrado com sucesso!');
+    alert('COLABORADOR CADASTRADO COM SUCESSO!');
     navigate('/projects');
   };
 
@@ -35,49 +37,49 @@ const CollaboratorForm: React.FC = () => {
       </button>
       
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Cadastro de Colaborador</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mb-6 uppercase">Cadastro de Colaborador</h2>
         
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Tipo de Colaborador</label>
-            <select name="type" onChange={handleChange} className="w-full p-2 border rounded-lg">
-                <option value="CLIENTE">Colaborador Cliente</option>
-                <option value="FORNECEDOR">Colaborador Fornecedor</option>
+            <label className="text-sm font-bold text-slate-700 uppercase">Tipo de Colaborador</label>
+            <select name="type" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase">
+                <option value="CLIENTE">COLABORADOR CLIENTE</option>
+                <option value="FORNECEDOR">COLABORADOR FORNECEDOR</option>
             </select>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Nome Completo</label>
-            <input required name="name" onChange={handleChange} className="w-full p-2 border rounded-lg" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Nome Completo</label>
+            <input required name="name" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
           </div>
 
            <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Função/Cargo</label>
-            <input required name="role" onChange={handleChange} className="w-full p-2 border rounded-lg" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Função/Cargo</label>
+            <input required name="role" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
           </div>
 
           {formData.type === 'CLIENTE' && (
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Vincular a Cliente (Empresa)</label>
-                <select name="clientId" onChange={handleChange} className="w-full p-2 border rounded-lg">
-                    <option value="">Selecione...</option>
+                <label className="text-sm font-bold text-slate-700 uppercase">Vincular a Cliente (Empresa)</label>
+                <select name="clientId" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase">
+                    <option value="">SELECIONE...</option>
                     {clients.map(c => <option key={c.id} value={c.id}>{c.tradeName}</option>)}
                 </select>
             </div>
           )}
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Celular</label>
-            <input required name="mobile" onChange={handleChange} className="w-full p-2 border rounded-lg" placeholder="(00) 00000-0000" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Celular</label>
+            <input required name="mobile" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" placeholder="(00) 00000-0000" />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Email</label>
-            <input required type="email" name="email" onChange={handleChange} className="w-full p-2 border rounded-lg" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Email</label>
+            <input required type="email" name="email" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
           </div>
 
           <div className="col-span-2 flex justify-end pt-4">
-            <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
+            <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 uppercase font-semibold">
                 <Save className="w-4 h-4" /> Salvar Colaborador
             </button>
           </div>

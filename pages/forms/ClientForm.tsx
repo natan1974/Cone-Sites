@@ -15,7 +15,10 @@ const ClientForm: React.FC = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    // Força Uppercase em todos os campos de texto
+    const finalValue = value.toUpperCase();
+    setFormData({ ...formData, [name]: finalValue });
   };
 
   const handleCnpjSearch = async () => {
@@ -41,16 +44,19 @@ const ClientForm: React.FC = () => {
 
       const data = await response.json();
 
+      // Helper para tratar strings nulas e converter para Upper
+      const toUpper = (str: any) => (str ? String(str).toUpperCase() : '');
+
       setFormData((prev) => ({
         ...prev,
-        businessName: data.razao_social,
-        tradeName: data.nome_fantasia || data.razao_social, // Usa razão social se não tiver fantasia
-        activity: data.cnae_fiscal_descricao,
-        zipCode: data.cep,
-        street: data.logradouro,
-        number: data.numero,
-        city: data.municipio,
-        state: data.uf,
+        businessName: toUpper(data.razao_social),
+        tradeName: toUpper(data.nome_fantasia || data.razao_social),
+        activity: toUpper(data.cnae_fiscal_descricao),
+        zipCode: toUpper(data.cep),
+        street: toUpper(data.logradouro),
+        number: toUpper(data.numero),
+        city: toUpper(data.municipio),
+        state: toUpper(data.uf),
         status: data.descricao_situacao_cadastral === 'ATIVA' ? 'Ativo' : 'Inativo'
       }));
 
@@ -70,8 +76,8 @@ const ClientForm: React.FC = () => {
     } as Client;
     
     addClient(newClient);
-    alert('Cliente cadastrado com sucesso!');
-    navigate('/projects'); // Redireciona ou limpa o form
+    alert('CLIENTE CADASTRADO COM SUCESSO!');
+    navigate('/projects'); 
   };
 
   return (
@@ -81,18 +87,18 @@ const ClientForm: React.FC = () => {
       </button>
       
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Cadastro de Cliente</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mb-6">CADASTRO DE CLIENTE</h2>
         
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">CNPJ</label>
+            <label className="text-sm font-bold text-slate-700 uppercase">CNPJ</label>
             <div className="relative">
               <input 
                 required 
                 name="cnpj" 
                 value={formData.cnpj || ''}
                 onChange={handleChange} 
-                className="w-full p-2 pr-12 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" 
+                className="w-full p-2 pr-12 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none uppercase" 
                 placeholder="00.000.000/0000-00" 
               />
               <button 
@@ -109,56 +115,56 @@ const ClientForm: React.FC = () => {
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Razão Social</label>
-            <input required name="businessName" value={formData.businessName || ''} onChange={handleChange} className="w-full p-2 border rounded-lg bg-slate-50" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Razão Social</label>
+            <input required name="businessName" value={formData.businessName || ''} onChange={handleChange} className="w-full p-2 border rounded-lg bg-slate-50 uppercase" />
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Nome Fantasia</label>
-            <input required name="tradeName" value={formData.tradeName || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Nome Fantasia</label>
+            <input required name="tradeName" value={formData.tradeName || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700">Atividade</label>
-            <input required name="activity" value={formData.activity || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" />
+            <label className="text-sm font-bold text-slate-700 uppercase">Atividade</label>
+            <input required name="activity" value={formData.activity || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
           </div>
           
           <div className="col-span-2 grid grid-cols-3 gap-4">
              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">CEP</label>
-                <input required name="zipCode" value={formData.zipCode || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" />
+                <label className="text-sm font-bold text-slate-700 uppercase">CEP</label>
+                <input required name="zipCode" value={formData.zipCode || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
             </div>
             <div className="space-y-2 col-span-2">
-                <label className="text-sm font-medium text-slate-700">Logradouro</label>
-                <input required name="street" value={formData.street || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" />
+                <label className="text-sm font-bold text-slate-700 uppercase">Logradouro</label>
+                <input required name="street" value={formData.street || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
             </div>
           </div>
           
           <div className="grid grid-cols-3 gap-4 col-span-2">
              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Número</label>
-                <input required name="number" value={formData.number || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" />
+                <label className="text-sm font-bold text-slate-700 uppercase">Número</label>
+                <input required name="number" value={formData.number || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
             </div>
              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Cidade</label>
-                <input required name="city" value={formData.city || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" />
+                <label className="text-sm font-bold text-slate-700 uppercase">Cidade</label>
+                <input required name="city" value={formData.city || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" />
             </div>
              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">UF</label>
-                <input required name="state" value={formData.state || ''} onChange={handleChange} className="w-full p-2 border rounded-lg" maxLength={2} />
+                <label className="text-sm font-bold text-slate-700 uppercase">UF</label>
+                <input required name="state" value={formData.state || ''} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" maxLength={2} />
             </div>
           </div>
 
            <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Situação</label>
-                <select name="status" value={formData.status || 'Ativo'} onChange={handleChange} className="w-full p-2 border rounded-lg">
-                    <option value="Ativo">Ativo</option>
-                    <option value="Inativo">Inativo</option>
+                <label className="text-sm font-bold text-slate-700 uppercase">Situação</label>
+                <select name="status" value={formData.status || 'Ativo'} onChange={handleChange} className="w-full p-2 border rounded-lg uppercase">
+                    <option value="Ativo">ATIVO</option>
+                    <option value="Inativo">INATIVO</option>
                 </select>
             </div>
 
           <div className="col-span-2 pt-4 flex justify-end">
-            <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
+            <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 uppercase font-semibold">
                 <Save className="w-4 h-4" /> Salvar Cliente
             </button>
           </div>
