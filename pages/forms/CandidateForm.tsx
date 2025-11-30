@@ -71,6 +71,7 @@ const CandidateForm: React.FC = () => {
                     <option value="">SELECIONE UM SITE...</option>
                     {sites.map(s => <option key={s.sharingId} value={s.sharingId}>{s.sharingName} ({s.sharingId})</option>)}
                 </select>
+                <p className="text-xs text-slate-400">Selecione o site da tabela SITES para vincular este candidato.</p>
             </div>
 
             <div className="md:col-span-3 border-b pb-2 mb-2 mt-4">
@@ -78,7 +79,7 @@ const CandidateForm: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700 uppercase">Nome do Candidato (Local)</label>
+                <label className="text-sm font-bold text-slate-700 uppercase">Candidato</label>
                 <input required name="name" onChange={handleChange} className="w-full p-2 border rounded-lg uppercase" placeholder="EX: PRÉDIO AZUL" />
             </div>
             <div className="space-y-2">

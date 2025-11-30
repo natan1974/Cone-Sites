@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import ProjectList from './pages/ProjectList';
 import ProjectDetails from './pages/ProjectDetails';
+import Reports from './pages/Reports';
 import { DataProvider } from './context/DataContext';
 
 // Forms
@@ -24,6 +25,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/projects" element={<ProjectList />} />
               <Route path="/projects/:id" element={<ProjectDetails />} />
+              <Route path="/reports" element={<Reports />} />
               
               {/* Formulários de Cadastro */}
               <Route path="/register/clients" element={<ClientForm />} />
