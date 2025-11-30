@@ -1,0 +1,5 @@
+{
+  "name": "TelcoSite Manager AI",
+  "description": "Sistema de gestão de projetos de telecomunicações focado em Aquisição de Sites (SA) e Licenciamento, com assistência de IA para análise jurídica e geração de documentos.",
+  "requestFramePermissions": []
+}
